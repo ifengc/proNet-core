@@ -24,11 +24,16 @@ This is a C++ framework for variant **weighted** network embedding techniques. W
 - MF (**M**atrix **F**actorization)
 - BPR (**B**ayesian **P**ersonalized **R**anking)
   - [BPR: Bayesian personalized ranking from implicit feedback](https://dl.acm.org/citation.cfm?id=1795167)
+- WARP
+  - [WSABIE: Scaling Up To Large Vocabulary Image Annotation](https://dl.acm.org/citation.cfm?id=2283856)
+  - [Learning to Rank Recommendations with the k-Order Statistic Loss](https://dl.acm.org/citation.cfm?id=2507157.2507210)
+- HOP-REC
+  - [HOP-Rec: High-Order Proximity for Implicit Recommendation]()
 
 In the near future, we will redesign the framework making some solid APIs for fast development on different network embedding techniques.
 
 # Developed Environment
-- g++ > 4.9 (In macOS, it needs OpenMP-enabled compilers. or try installing lateast version of gcc)
+- g++ > 4.9 (In macOS, it needs OpenMP-enabled compilers. e.g. brew reinstall gcc6 --without-multilib)
 
 # Compilation
 ```
@@ -67,6 +72,8 @@ Directly call the execution file to see the usage like:
 ./cli/app
 ./cli/mf
 ./cli/bpr
+./cli/warp
+./cli/hoprec
 ```
 then you will see the options description like:
 ```
@@ -116,15 +123,20 @@ You can find related work from [awesome-network-embedding](https://github.com/ch
 }
 ```
 
-# Upcoming
-A new version will be released in March with following new features
-- faster speed, around 20% improvements
-- new models
-  - [node2vec](http://snap.stanford.edu/node2vec/)
-  - [NERM](https://link.springer.com/chapter/10.1007/978-3-319-48051-0_17)
-  - [coFactor](http://dawenl.github.io/publications/LiangACB16-cofactor.pdf)
-- new rank loss
-  - BPR with batch
-  - [WARP loss](http://www.thespermwhale.com/jaseweston/papers/wsabie-ijcai.pdf)
-  - [k-order statistic loss](http://www.ee.columbia.edu/~ronw/pubs/recsys2013-kaos.pdf)
-- some of our on-going work
+# Note
+for certain algorithms, it is required to assign the field of each vertex in "vertex field" form:
+```
+userA u
+userB u
+userC u
+itemA i
+itemB i
+itemC i
+itemD i
+```
+
+# Code & Data Structure
+[Slides](http://cherry.cs.nccu.edu.tw/~g10018/portfolio/slides/pronet.pdf)
+
+# News
+We're now refactoring the project. More solid functions/features will be available in the future.

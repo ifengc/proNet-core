@@ -1,5 +1,5 @@
 #define _GLIBCXX_USE_CXX11_ABI 1
-#include "../src/model/BPR.h"
+#include "../src/model/WARP.h"
 
 int ArgPos(char *str, int argc, char **argv) {
     int a;
@@ -19,7 +19,7 @@ int main(int argc, char **argv){
 
     if (argc == 1) {
         printf("[proNet-core]\n");
-        printf("\tcommand bpr interface for proNet-core\n\n");
+        printf("\tcommand warp interface for proNet-core\n\n");
         printf("Options Description:\n");
         printf("\t-train <string>\n");
         printf("\t\tTrain the Network data\n");
@@ -31,14 +31,12 @@ int main(int argc, char **argv){
         printf("\t\tNumber of training samples *Million; default is 10\n");
         printf("\t-threads <int>\n");
         printf("\t\tNumber of training threads; default is 1\n");
-        printf("\t-reg <float>\n");
-        printf("\t\tThe regularization term; default is 0.01\n");
         printf("\t-alpha <float>\n");
         printf("\t\tInit learning rate; default is 0.025\n");
 
         printf("Usage:\n");
-        printf("\n[BPR]\n");
-        printf("./bpr -train net.txt -save rep.txt -dimensions 64 -sample_times 10 -alpha 0.025 -threads 1\n");
+        printf("\n[WARP]\n");
+        printf("./warp -train net.txt -save rep.txt -dimensions 64 -sample_times 10 -alpha 0.025 -threads 1\n");
 
         return 0;
     }
@@ -51,16 +49,15 @@ int main(int argc, char **argv){
     if ((i = ArgPos((char *)"-save", argc, argv)) > 0) strcpy(rep_file, argv[i + 1]);
     if ((i = ArgPos((char *)"-dimensions", argc, argv)) > 0) dimensions = atoi(argv[i + 1]);
     if ((i = ArgPos((char *)"-sample_times", argc, argv)) > 0) sample_times = atoi(argv[i + 1]);
-    if ((i = ArgPos((char *)"-reg", argc, argv)) > 0) reg = atof(argv[i + 1]);
     if ((i = ArgPos((char *)"-alpha", argc, argv)) > 0) init_alpha = atof(argv[i + 1]);
     if ((i = ArgPos((char *)"-threads", argc, argv)) > 0) threads = atoi(argv[i + 1]);
     
-    BPR *bpr;
-    bpr = new BPR();
-    bpr->LoadEdgeList(network_file, 0);
-    bpr->Init(dimensions);
-    bpr->Train(sample_times, negative_samples, init_alpha, reg, threads);
-    bpr->SaveWeights(rep_file);
+    WARP *warp;
+    warp = new WARP();
+    warp->LoadEdgeList(network_file, 0);
+    warp->Init(dimensions);
+    warp->Train(sample_times, negative_samples, init_alpha, reg, threads);
+    warp->SaveWeights(rep_file);
 
     return 0;
 
